@@ -41,3 +41,13 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Gojou Satoru
 * Responsibilities: To be confirmed 
+
+### Yin Ruoyan 
+
+<img src="images/ruoyan.png" width="200px">
+
+[[github](http://github.com/ruoyann)]
+[[portfolio](team/johndoe.md)]
+
+* Role: Developer
+* Responsibilities: UI
