@@ -107,17 +107,14 @@ public class StudySpotCard extends UiPart<Region> {
 
     private void setAmenitiesDisplay(HBox amenitiesDisplay, StudySpot studySpot) {
         if (studySpot.getAmenities().isEmpty()) {
-            setDefaultAmenitiesDisplay(amenitiesDisplay);
+            setEmptyAmenitiesDisplay(amenitiesDisplay);
         } else {
             setUpdatedAmenitiesDisplay(amenitiesDisplay, studySpot);
         }
     }
 
-    private void setDefaultAmenitiesDisplay(HBox amenitiesDisplay) {
-        Arrays.stream(Amenity.VALID_TYPES)
-                .sorted()
-                .forEach(amenityType -> amenitiesDisplay.getChildren()
-                        .add(getAmenityIconLabel(amenityType, false)));
+    private void setEmptyAmenitiesDisplay(HBox amenitiesDisplay) {
+        amenitiesDisplay.setVisible(false);
     }
 
     private void setUpdatedAmenitiesDisplay(HBox amenitiesDisplay, StudySpot studySpot) {
@@ -127,23 +124,18 @@ public class StudySpotCard extends UiPart<Region> {
                 .sorted()
                 .forEach(amenityType -> {
                     if (amenitiesPresent.contains(amenityType)) {
-                        amenitiesDisplay.getChildren().add(getAmenityIconLabel(amenityType, true));
-                    } else {
-                        amenitiesDisplay.getChildren().add(getAmenityIconLabel(amenityType, false));
+                        amenitiesDisplay.getChildren().add(getAmenityIconLabel(amenityType));
                     }
                 });
     }
 
-    private Label getAmenityIconLabel(String amenityType, boolean isActive) {
+    private Label getAmenityIconLabel(String amenityType) {
         Label result = new Label();
 
         SVGPath icon = new SVGPath();
         icon.setScaleX(0.03);
         icon.setScaleY(0.03);
         icon.getStyleClass().add("svg_icon");
-        if (!isActive) {
-            icon.getStyleClass().add("cell_muted_label");
-        }
 
         switch (amenityType) {
         case "wifi":
@@ -159,7 +151,7 @@ public class StudySpotCard extends UiPart<Region> {
             result.setGraphic(icon);
             return result;
         default:
-            throw new AssertionError("error occured");
+            throw new AssertionError("Amenity [" + amenityType + "] not found in StudySpotCard!");
         }
     }
 
